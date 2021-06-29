@@ -1,0 +1,9 @@
+{
+  "BASE": "https://www.bungie.net/Platform",
+  "COMMAND": "#",
+
+  "OAUTH_ID": "12345",
+  "API_KEY": "d14344de3f92cac3192ad67ad46e14a7",
+  "HOST": "localhost",
+  "PORT": "8080"
+}
