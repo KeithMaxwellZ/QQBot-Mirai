@@ -3,7 +3,7 @@ from p_var import COMMAND, ENV
 
 def test_command():
     def func(_, __, *args):
-        return [{"type": "Plain", "text": "SUCCESS"}]
+        return [{"type": "Plain", "text": "SUCCESS"}], True
 
     return [("TEST", func)]
 
@@ -13,9 +13,9 @@ class ParserManager:
         ENV['cmd'].extend(test_command())
 
     def parse(self, msg: str, rd: dict):
-        print(msg)
         res = []
         if msg[0] == COMMAND:
+            print(msg)
             c = msg.split(' ')
             i = 0
             while i < len(c):
