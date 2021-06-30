@@ -1,19 +1,32 @@
-from p_var import ENV
+from p_var import ENV, Msg_Comp, DEBUG
 
 import requests
-from typing import Dict
+from typing import Dict, Tuple, List
 from pprint import pprint
 
 ACTIVATE = True
 
 
 class WeatherManager:
+    """
+    Module for weather forecast
+    """
     @staticmethod
     def load():
+        """
+        Load the command into the environment
+        :return:
+        """
         ENV['cmd'].extend([("天气", WeatherManager.weather_wrapper)])
 
     @staticmethod
-    def weather_wrapper(rd, args):
+    def weather_wrapper(rd: Dict, args: Tuple) -> Tuple[Msg_Comp, bool]:
+        """
+        Wrapper function for weather_forecast function
+        :param rd: original dictionary from the request
+        :param args: should have exactly one, which is city name
+        :return:
+        """
         res = []
         if len(args) == 1:
             res.append({"type": "Plain", "text": "参数数量错误"})
@@ -22,20 +35,30 @@ class WeatherManager:
         return res, True
 
     @staticmethod
-    def weather_forecast(city_name: str) -> Dict:
+    def weather_forecast(city_name: str) -> Msg_Comp:
+        """
+        function for forecasting the weather in specific city
+        :param city_name: target city
+        :return: return a message component
+        """
+        # TODO: change to another API that supports foreign cities
         res = requests.get(f"http://wthrcdn.etouch.cn/weather_mini?city={city_name}")
         rj = res.json()
-        pprint(rj)
+        if DEBUG:
+            pprint(rj)
+
+        # Check the status of the request result and form message components
         if rj['status'] != 1000:
-            return {"type": "Plain", "text": "城市名错误"}
+            return [{"type": "Plain", "text": "城市名错误"}]
         else:
             s = f"{city_name}三日天气\n============\n"
             for i in range(3):
                 d = rj['data']['forecast'][i]
                 s += f"日期：{d['date']}\n{d['high']}\n{d['low']}\n=========\n"
-            return {"type": "Plain", "text": s}
+            return [{"type": "Plain", "text": s}]
 
 
+# Initialization
 ENV['wm'] = WeatherManager()
 if ACTIVATE:
     ENV['wm'].load()

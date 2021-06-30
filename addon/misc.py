@@ -2,6 +2,9 @@ from p_var import ENV
 
 
 class Misc:
+    """
+    Some random stuff, will be replaced by conversation manager later
+    """
     def __init__(self):
         cmds = [
             ("矩阵挑食", Misc.ts),

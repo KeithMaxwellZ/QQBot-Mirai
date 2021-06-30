@@ -1,7 +1,7 @@
 import json
 import random
 
-from p_var import DEBUG, ENV
+from p_var import DEBUG, ENV, Msg_Comp
 from pprint import pprint
 from datetime import datetime
 
@@ -164,7 +164,7 @@ class TarotManager:
         ])
 
     @staticmethod
-    def draw_wrapper(rd: Dict, args: Tuple) -> Tuple[List[Dict], bool]:
+    def draw_wrapper(rd: Dict, args: Tuple) -> Tuple[Msg_Comp, bool]:
         """
         Wrapper class for draw function
         :param rd: The original dict from the request
@@ -186,7 +186,7 @@ class TarotManager:
         ENV['tm'].show_cache()
         return [], False
 
-    def draw(self, qq: int) -> List[Dict]:
+    def draw(self, qq: int) -> Msg_Comp:
         """
         Function for drawing a tarot card
         :param qq: check if the user has drawn the card already or not
