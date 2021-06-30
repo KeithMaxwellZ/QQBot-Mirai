@@ -69,8 +69,10 @@ class ConversationManager:
     def search(self, group, sentence):
         res = self.dfa.match(sentence)
         if res and res in self.ref[group]:
-            val = random.randint(0, len(self.ref[group][res]) - 1)
-            return [{'type': 'Plain', 'text': self.ref[group][res][val]}]
+            p = random.randint(0, 100)
+            if p < 30:
+                val = random.randint(0, len(self.ref[group][res]) - 1)
+                return [{'type': 'Plain', 'text': self.ref[group][res][val]}]
         return []
 
     def save_data(self):
