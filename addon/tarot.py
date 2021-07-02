@@ -2,9 +2,10 @@ import json
 import random
 
 from p_var import DEBUG, ENV, Msg_Comp
+from util.util import text_payload_gen, image_payload_gen
+
 from pprint import pprint
 from datetime import datetime
-
 from typing import Dict, Tuple, List
 
 
@@ -28,7 +29,7 @@ class TarotManager:
         self.rf = {
             "女装": {
                 "pos": [
-                    "嗯",
+                    "嗯嗯",
                     "嗯？",
                 ],
                 "neg": [
@@ -168,7 +169,7 @@ class TarotManager:
         """
         Wrapper class for draw function
         :param rd: The original dict from the request
-        :param args: It's not used but is needed
+        :param args: It's not used
         :return: The result of the draw function,
                  will mentioned the user who invoked this command
         """
@@ -177,7 +178,7 @@ class TarotManager:
         return res, True
 
     @staticmethod
-    def show_cache_wrapper(*args):
+    def show_cache_wrapper(*_):
         """
         For debug only, will print the result to the console
         :param args:
@@ -232,7 +233,6 @@ class TarotManager:
              f"事件：{rd['暗示']}\n" \
              f"\n" \
              f"[{ref[v2]}] \n\n" \
-             f"[忌宜]"
 
         for k, v in rd[ref[v2]].items():
             sd += f"{k}: {v}\n"
@@ -253,17 +253,7 @@ class TarotManager:
 
         sd += '\n' + s
 
-        # Form payloads
-        img = {
-            "type": "Image",
-            "imageId": None,
-            "url": None,
-            "path": f"img/838_{str(v1).zfill(2)}.jpg",
-            "base64": None
-        }
-
-        rs = {'type': 'Plain', 'text': sd}
-        return [img, rs]
+        return [image_payload_gen(f"img/838_{str(v1).zfill(2)}.jpg"), text_payload_gen(sd)]
 
     def show_cache(self):
         """

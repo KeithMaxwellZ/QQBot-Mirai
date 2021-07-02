@@ -1,5 +1,6 @@
 from p_var import ENV, Msg_Comp
 from typing import Dict, List, Tuple
+from util.util import image_payload_gen, text_payload_gen
 
 import random
 import os
@@ -50,15 +51,7 @@ class WhatToEat:
         name = self.files[r].split('.')[0]
 
         # Form message components
-        img = {
-            "type": "Image",
-            "imageId": None,
-            "url": None,
-            "path": f"foodimg/{name}.jpg",
-            "base64": None
-        }
-        text = {'type': 'Plain', 'text': '\n' + name}
-        return [img, text]
+        return [image_payload_gen(f"foodimg/{name}.jpg"), text_payload_gen('\n'+name)]
 
 
 ACTIVATE = True

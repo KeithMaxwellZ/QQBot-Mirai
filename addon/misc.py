@@ -1,10 +1,13 @@
 from p_var import ENV
 
+from util.util import text_payload_gen, image_payload_gen
+
 
 class Misc:
     """
     Some random stuff, will be replaced by conversation manager later
     """
+
     def __init__(self):
         cmds = [
             ("矩阵挑食", Misc.ts),
@@ -14,20 +17,12 @@ class Misc:
         print("Misc loaded")
 
     @staticmethod
-    def ts(_, __, *args):
-        return [{"type": "Plain", "text": "不可以挑食！"}], False
+    def ts(*_):
+        return [text_payload_gen("不可以挑食！")], False
 
     @staticmethod
-    def snake(_, __, *args):
-        img = {
-            "type": "Image",
-            "imageId": None,
-            "url": None,
-            "path": f"misc/snake.jpg",
-            "base64": None
-        }
-
-        return [img], False
+    def snake(*_):
+        return [image_payload_gen(f"misc/snake.jpg")], False
 
 
 ms = Misc()

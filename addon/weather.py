@@ -1,4 +1,5 @@
 from p_var import ENV, Msg_Comp, DEBUG
+from util.util import text_payload_gen
 
 import requests
 from typing import Dict, Tuple, List
@@ -29,7 +30,7 @@ class WeatherManager:
         """
         res = []
         if len(args) == 1:
-            res.append({"type": "Plain", "text": "参数数量错误"})
+            res.append(text_payload_gen("参数数量错误"))
         else:
             res.append(WeatherManager.weather_forecast(args[1]))
         return res, True
@@ -55,7 +56,7 @@ class WeatherManager:
             for i in range(3):
                 d = rj['data']['forecast'][i]
                 s += f"日期：{d['date']}\n{d['high']}\n{d['low']}\n=========\n"
-            return [{"type": "Plain", "text": s}]
+            return [text_payload_gen(s)]
 
 
 # Initialization
