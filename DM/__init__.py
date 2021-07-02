@@ -16,6 +16,11 @@ class ProfileManager:
         self.laod_data()
 
     def search(self, qq: int) -> Optional[profile_fetcher]:
+        """
+        Look for specific qq in the cache
+        :param qq: target qq
+        :return:
+        """
         if qq in self._ind.keys():
             return self._ind[qq]
         else:
@@ -23,6 +28,10 @@ class ProfileManager:
 
     @staticmethod
     def load():
+        """
+        Load commands into the environment
+        :return:
+        """
         ENV['cmd'].extend([
             ("绑定", ProfileManager.insert_wrapper),
             ("周常", ProfileManager.milestone_wrapper)
@@ -30,6 +39,12 @@ class ProfileManager:
 
     @staticmethod
     def insert_wrapper(rd, *args):
+        """
+        Wrapper class for insert function
+        :param rd:
+        :param args:
+        :return:
+        """
         qq = int(rd['sender']['id'])
         res = []
         if len(args) == 1:

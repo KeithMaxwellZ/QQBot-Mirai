@@ -1,5 +1,6 @@
 from p_var import DEBUG
 from util.message_parser import ParserManager
+from util.util import send_group_message
 
 import websocket
 import json
@@ -26,11 +27,12 @@ def on_message(ws: websocket.WebSocketApp, msg):
                     if chain:
                         session = rj1['session']
                         target = data["sender"]["group"]["id"]
-                        print(session)
-                        print(chain)
-                        print(target)
+                        if DEBUG:
+                            print(session)
+                            print(chain)
+                            print(target)
                         send_group_message(session, chain, target)
-                except Exception as e:
+                except Exception:
                     traceback.print_exc()
 
 
