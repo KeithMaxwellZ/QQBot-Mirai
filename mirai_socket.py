@@ -68,7 +68,7 @@ rj1 = res.json()
 print(rj1)
 
 res = requests.post("http://localhost:8081/verify",
-                    data=json.dumps({"sessionKey": rj1['session'], "qq": 2797339190}))
+                     data=json.dumps({"sessionKey": rj1['session'], "qq": 2797339190}))
 rj2 = res.json()
 print(rj2)
 

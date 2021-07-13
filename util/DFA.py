@@ -47,6 +47,7 @@ class DFA:
         curr = None
         i = 0
         cache = ""
+        res_l = []
         while i < len(word):
             if DFA.Transitions(curr, word[i]) in self.transitions:
                 curr = word[i]
@@ -58,10 +59,10 @@ class DFA:
                 for x in self.fs[curr]:
                     v = cache.rfind(x)
                     if v != -1 and v + len(x) == len(cache):
-                        return x
+                        res_l.append(x)
             i += 1
 
-        return None
+        return res_l
 
     def debug(self):
         for i in self.transitions:
