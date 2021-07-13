@@ -79,7 +79,7 @@ class ConversationManager:
             p = random.randint(0, 100)
             if p < 30:
                 val = random.randint(0, len(resp_lst) - 1)
-                return [{'type': 'Plain', 'text': resp_lst[-1]}]
+                return [{'type': 'Plain', 'text': resp_lst[val]}]
 
         return []
 
